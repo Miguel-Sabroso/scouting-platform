@@ -59,6 +59,8 @@ Flujo de datos: fuentes (Understat, Transfermarkt, StatsBomb Open Data) → inge
 ```bash
 docker compose up -d        # levanta PostgreSQL + pgvector
 uv sync                     # instala dependencias
+uv run pre-commit install   # engancha los hooks a git (una vez por clon)
+uv run pre-commit run --all-files   # pasa todos los hooks a mano
 uv run pytest               # tests
 uv run ruff check . && uv run mypy .
 ```

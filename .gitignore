@@ -1,0 +1,32 @@
+# Environment and secrets
+.venv/
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Tool caches
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Data (raw, scraping cache, derived): never committed
+data/
+
+# Node / Next.js (phase 3)
+node_modules/
+.next/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

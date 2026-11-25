@@ -4,7 +4,7 @@ import importlib
 
 import pytest
 
-MODULES = ["data_platform", "features", "scouting", "simulation", "api"]
+MODULES = ["core", "data_platform", "features", "scouting", "simulation", "api"]
 
 
 @pytest.mark.parametrize("name", MODULES)

@@ -21,13 +21,15 @@ Monolito modular en un monorepo. Los módulos se comunican por interfaces claras
 
 ```
 scouting-platform/
+├── core/            # configuración (pydantic-settings) compartida por todos los módulos
 ├── data_platform/   # adaptadores por fuente, ingesta raw, normalización, resolución de entidades
 ├── features/        # métricas por 90', percentiles por posición, ajuste por liga, vectores
 ├── scouting/        # búsqueda por similitud (pgvector) + capa LLM
 ├── simulation/      # modelo de partido, impacto por jugador (RAPM), Monte Carlo, escenarios
 ├── api/             # FastAPI: api/ → services/ → repositories/ → domain/
 ├── web/             # Next.js
-└── infra/           # docker-compose, CI
+├── infra/           # scripts de Postgres, CI
+└── compose.yaml     # servicios locales (PostgreSQL + pgvector)
 ```
 
 Flujo de datos: fuentes (Understat, Transfermarkt, StatsBomb Open Data) → ingesta con adaptadores → raw en Parquet (inmutable) → limpieza + resolución de entidades → PostgreSQL (+ pgvector) → buscador y simulador → API → web.
@@ -57,7 +59,8 @@ Flujo de datos: fuentes (Understat, Transfermarkt, StatsBomb Open Data) → inge
 ## Comandos
 
 ```bash
-docker compose up -d        # levanta PostgreSQL + pgvector
+Copy-Item .env.example .env # una vez por clon; ajustar valores
+docker compose up -d        # levanta PostgreSQL + pgvector (compose.yaml en la raíz)
 uv sync                     # instala dependencias
 uv run pre-commit install   # engancha los hooks a git (una vez por clon)
 uv run pre-commit run --all-files   # pasa todos los hooks a mano
